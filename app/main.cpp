@@ -20,7 +20,7 @@ int inpHeight; // Height of network's input image
 vector<string> classes;
 
 vector<Rect2d> bboxes;
-int codQuantity, saitheQuantity;
+int peopleQuantity, bicycleQuantity;
 
 string objectLabel;
 
@@ -115,8 +115,8 @@ void postprocess(Mat& frame, const vector<Mat>& outs)
     vector<float> confidences;
     vector<Rect> boxes;
 
-    codQuantity = 0;
-    saitheQuantity = 0;
+    peopleQuantity = 0;
+    bicycleQuantity = 0;
 
     for (size_t i = 0; i < outs.size(); ++i)
     {
@@ -134,12 +134,12 @@ void postprocess(Mat& frame, const vector<Mat>& outs)
 
             if (confidence > confThreshold)
             {
-                if (classes[classIdPoint.x] == "atlantic cod") {
-                    codQuantity++;
+                if (classes[classIdPoint.x] == "person") {
+                    peopleQuantity++;
                 }
-                else if (classes[classIdPoint.x] == "saithe")
+                else if (classes[classIdPoint.x] == "bicycle")
                 {
-                    saitheQuantity++;
+                    bicycleQuantity++;
                 }
 
                 int centerX = (int)(data[0] * frame.cols);
@@ -257,7 +257,7 @@ int main(int argumentQuantity, char *arguments[])
     Net net = readNetFromDarknet(modelConfiguration, modelWeights);
 
     // Load names of classes
-    string classesFile = "data/models/obj.names";
+    string classesFile = "data/models/coco.names";
     ifstream ifs(classesFile.c_str());
     string line;
     while (getline(ifs, line)) classes.push_back(line);
@@ -342,9 +342,14 @@ int main(int argumentQuantity, char *arguments[])
 
         float fps = getTickFrequency() / ((double)getTickCount() - timer);
 
+        if (peopleQuantity == 0)
+        {
+            putText(frame, "ALARM: NO PEOPLE ON FERRY!", Point(200,50), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(0,0,255), 2);
+        }
+
         putText(frame, "FPS: " + std::to_string(int(fps)), Point(100,50), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50), 2);
-        putText(frame, "Atlantic cod quantity: " + std::to_string(codQuantity), Point(100,100), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50), 2);
-        putText(frame, "Saithe quantity: " + std::to_string(saitheQuantity), Point(100,130), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50), 2);
+        putText(frame, "Person quantity: " + std::to_string(peopleQuantity), Point(100,100), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50), 2);
+        putText(frame, "Bycicle quantity: " + std::to_string(bicycleQuantity), Point(100,130), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50), 2);
 
         //videoWrite.write(frame);
         imshow(WINDOW_TITLE, frame);
@@ -357,11 +362,11 @@ int main(int argumentQuantity, char *arguments[])
         char *time = ctime(&end_time);
         if (time[strlen(time)-1] == '\n') time[strlen(time)-1] = '\0';
 
-        // Log cod and saith quantities to csv file
-        if (codQuantity > 0 || saitheQuantity > 0)
+        // Log time when none detected
+        if (peopleQuantity == 0)
         {
-            logFile << codQuantity << "," << saitheQuantity << ",\"" << time << "\"" << endl;
-            cout << codQuantity << "," << saitheQuantity << ",\"" << time << "\"" << endl;
+            logFile << peopleQuantity << time << "\"" << endl;
+            cout << peopleQuantity << time << "\"" << endl;
         }
     }
 
