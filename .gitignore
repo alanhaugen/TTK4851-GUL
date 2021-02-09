@@ -83,6 +83,9 @@ outputs
 *.a
 *.lib
 
+# Video files
+*.avi
+
 # Executables
 *.exe
 *.out

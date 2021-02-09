@@ -213,7 +213,7 @@ int main(int argumentQuantity, char *arguments[])
     // Print usage as a warning
     clog << "Usage: ./OBJECT_DETECTOR <videoPath>" << endl;
 
-    // Use webcam or filepath from command line
+    // Use filepath from command line
     if (argumentQuantity > 1)
     {
         string videoPath = arguments[1];
@@ -221,8 +221,17 @@ int main(int argumentQuantity, char *arguments[])
     }
     else
     {
-        clog << "No video path given. Using camera 0" << endl;
-        video = VideoCapture(0);
+        clog << "no filepath or stream given. trying network camera at 192.168.127.100:554" << endl;
+
+        // Use network stream
+        video = VideoCapture("pipeline='rtspsrc location=rtsp://admin:scroll64@192.168.127.100:554/Streaming/Channels/102 latency=10 ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink max-buffers=1 drop=true'", CAP_GSTREAMER);
+
+        // Use webcam
+/*        if (video.isOpened() == false)
+        {
+            clog << "conecting to network camera failed. trying camera 0" << endl;
+            video = VideoCapture(0);
+        }*/
     }
 
     if (video.isOpened() == false)
@@ -363,11 +372,11 @@ int main(int argumentQuantity, char *arguments[])
         if (time[strlen(time)-1] == '\n') time[strlen(time)-1] = '\0';
 
         // Log time when none detected
-        if (peopleQuantity == 0)
+        /*if (peopleQuantity == 0)
         {
-            logFile << peopleQuantity << time << "\"" << endl;
-            cout << peopleQuantity << time << "\"" << endl;
-        }
+            logFile << time << "\"" << endl;
+            cout << time << "\"" << endl;
+        }*/
     }
 
     logFile.close();
