@@ -16,9 +16,19 @@ Installer opencv for python:
 
 ### Test
 
-Test inference_yolo.py
+Test object_detection_yolo.py
 
-> ./inference_yolo.py
+> python3 object_detection_yolo.py
+
+### Rapport
+
+Prosess: https://www.overleaf.com/4512238873cndkktsqvgwm 
+
+Prosjekt: https://www.overleaf.com/1614163417dvgfpsqhwcvq 
+
+### Reklamefilm av autoferjen
+
+Her er hvordan den neste autoferjen vil se ut: https://youtu.be/FuWedx0oLX4?t=107
 
 ## For en delt Dropbox-mappe:
 
