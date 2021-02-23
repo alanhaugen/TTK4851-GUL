@@ -134,14 +134,6 @@ void postprocess(Mat& frame, const vector<Mat>& outs)
 
             if (confidence > confThreshold)
             {
-                if (classes[classIdPoint.x] == "person") {
-                    peopleQuantity++;
-                }
-                else if (classes[classIdPoint.x] == "bicycle")
-                {
-                    bicycleQuantity++;
-                }
-
                 int centerX = (int)(data[0] * frame.cols);
                 int centerY = (int)(data[1] * frame.rows);
                 int width = (int)(data[2] * frame.cols);
@@ -173,6 +165,14 @@ void postprocess(Mat& frame, const vector<Mat>& outs)
     NMSBoxes(boxes, confidences, confThreshold, nmsThreshold, indices);
     for (size_t i = 0; i < indices.size(); ++i)
     {
+        if (classes[classIds[idx]] == "person") {
+            peopleQuantity++;
+        }
+        else if (classIds[idx]] == "bicycle")
+        {
+            bicycleQuantity++;
+        }
+
         int idx = indices[i];
         Rect box = boxes[idx];
         drawPred(classIds[idx], confidences[idx], box.x, box.y,
