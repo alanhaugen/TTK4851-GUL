@@ -18,6 +18,9 @@ parser.add_argument('--image', help='Path to image file.')
 parser.add_argument('--video', help='Path to video file.')
 args = parser.parse_args()
 
+# Store number of people on ferry
+people = 0
+
 # Load names of classes
 classesFile = MODEL_PATH + "coco.names"
 classes = None
@@ -68,6 +71,11 @@ def postprocess(frame, outs):
     classIds = []
     confidences = []
     boxes = []
+
+    global people
+    
+    people = 0
+
     for out in outs:
         for detection in out:
             scores = detection[5:]
@@ -95,6 +103,10 @@ def postprocess(frame, outs):
         width = box[2]
         height = box[3]
         drawPred(classIds[i], confidences[i], left, top, left + width, top + height)
+        
+        # Count people
+        if classes[classIds[i]] == "person":
+            people = people + 1
 
 # Process inputs
 winName = 'Deep learning object detection in OpenCV'
@@ -120,8 +132,8 @@ else:
     cap = cv.VideoCapture(0)
 
 # Get the video writer initialized to save the output video
-if (not args.image):
-    vid_writer = cv.VideoWriter(outputFile, cv.VideoWriter_fourcc('M','J','P','G'), 30, (round(cap.get(cv.CAP_PROP_FRAME_WIDTH)),round(cap.get(cv.CAP_PROP_FRAME_HEIGHT))))
+#if (not args.image):
+#    vid_writer = cv.VideoWriter(outputFile, cv.VideoWriter_fourcc('M','J','P','G'), 30, (round(cap.get(cv.CAP_PROP_FRAME_WIDTH)),round(cap.get(cv.CAP_PROP_FRAME_HEIGHT))))
 
 while cv.waitKey(1) < 0:
 
@@ -147,15 +159,18 @@ while cv.waitKey(1) < 0:
     # Remove the bounding boxes with low confidence
     postprocess(frame, outs)
 
+    # Put amount of people onto screen
+    cv.putText(frame, "Number of people: " + str(people), (300, 150), cv.FONT_HERSHEY_SIMPLEX, 1.75, (255,0,0))
+
     # Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and the timings for each of the layers(in layersTimes)
     t, _ = net.getPerfProfile()
     label = 'Inference time: %.2f ms' % (t * 1000.0 / cv.getTickFrequency())
     cv.putText(frame, label, (0, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
 
     # Write the frame with the detection boxes
-    if (args.image):
-        cv.imwrite(outputFile, frame.astype(np.uint8));
-    else:
-        vid_writer.write(frame.astype(np.uint8))
+    #if (args.image):
+    #    cv.imwrite(outputFile, frame.astype(np.uint8));
+    #else:
+    #    vid_writer.write(frame.astype(np.uint8))
 
     cv.imshow(winName, frame)
