@@ -165,18 +165,20 @@ void postprocess(Mat& frame, const vector<Mat>& outs)
     NMSBoxes(boxes, confidences, confThreshold, nmsThreshold, indices);
     for (size_t i = 0; i < indices.size(); ++i)
     {
-        if (classes[classIds[idx]] == "person") {
-            peopleQuantity++;
-        }
-        else if (classIds[idx]] == "bicycle")
-        {
-            bicycleQuantity++;
-        }
-
         int idx = indices[i];
         Rect box = boxes[idx];
         drawPred(classIds[idx], confidences[idx], box.x, box.y,
                  box.x + box.width, box.y + box.height, frame);
+
+        if (classes[classIds[idx]] == "person")
+        {
+            peopleQuantity++;
+        }
+        else if (classes[classIds[idx]] == "bicycle")
+        {
+            bicycleQuantity++;
+        }
+
     }
 
     //isTracking = true;
@@ -211,7 +213,7 @@ int main(int argumentQuantity, char *arguments[])
     VideoCapture video;
 
     // Print usage as a warning
-    clog << "Usage: ./OBJECT_DETECTOR <videoPath>" << endl;
+    cout << "Usage: ./OBJECT_DETECTOR <videoPath>" << endl;
 
     // Use filepath from command line
     if (argumentQuantity > 1)
@@ -221,10 +223,10 @@ int main(int argumentQuantity, char *arguments[])
     }
     else
     {
-        clog << "no filepath or stream given. trying network camera at 192.168.127.100:554" << endl;
+        cout << "no filepath or stream given. trying network camera at 192.168.127.102:554" << endl;
 
         // Use network stream
-        video = VideoCapture("pipeline='rtspsrc location=rtsp://admin:scroll64@192.168.127.100:554/Streaming/Channels/102 latency=10 ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink max-buffers=1 drop=true'", CAP_GSTREAMER);
+        video = VideoCapture("rtsp location=rtsp://admin:scroll64@192.168.127.102:554/Streaming/Channels/102 latency=10 ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink max-buffers=1 drop=true", CAP_GSTREAMER);//CAP_V4L2);
 
         // Use webcam
 /*        if (video.isOpened() == false)
@@ -258,7 +260,7 @@ int main(int argumentQuantity, char *arguments[])
     ifile = ifstream(modelConfiguration);
     if (!ifile)
     {
-        cerr << "YOLOv3 model could not be found. Please download and extract data from here: https://www.dropbox.com/s/aym2lmnzjlam16v/data.zip" << endl;
+        cerr << "YOLOv3 model could not be found. Please download and extract data from here: https://www.dropbox.com/sh/35sw2e2k2mnfpey/AABfc_XbsDZG3jrlAkSZ40I8a" << endl;
         return -1;
     }
 
