@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 function run_python_container()  {
-  image_name="yolov5:latest"
+  image_name="ultralytics/yolov5"
   xhost +local:root
   XSOCK=/tmp/.X11-unix
   docker run -it --rm \
@@ -9,7 +9,7 @@ function run_python_container()  {
       -v $XSOCK:$XSOCK \
       -v $HOME/.ssh:/root/.ssh \
        -v $HOME/.Xauthority:/root/.Xauthority \
-       --name acados \
+       --name yolov5_official \
         --privileged \
         $image_name "$@"
 }
