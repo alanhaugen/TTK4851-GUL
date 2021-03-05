@@ -1,5 +1,7 @@
 # TTK4851-GUL
 
+## Seanet
+
 ## Bruk av maskinsyn til å detektere og telle mennesker på autofergen
 
 ### Setup
@@ -17,15 +19,15 @@ Installer opencv for python:
 
 ### Test
 
-Test object_detection_yolo.py
+Test object_detection_yolov3.py
 
-> python3 object_detection_yolo.py
+> python3 object_detection_yolov3.py
 
 ### Rapport
 
-Prosess: https://www.overleaf.com/4512238873cndkktsqvgwm 
+Prosess: https://www.overleaf.com/8761576379qgqdtqkyvccb
 
-Prosjekt: https://www.overleaf.com/1614163417dvgfpsqhwcvq 
+Prosjekt: https://www.overleaf.com/5628621316bwjsxvqghhgm
 
 ### Reklamefilm av autoferjen
 
