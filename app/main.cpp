@@ -215,18 +215,20 @@ int main(int argumentQuantity, char *arguments[])
     // Print usage as a warning
     cout << "Usage: ./OBJECT_DETECTOR <videoPath>" << endl;
 
+    string videoPath;
+
     // Use filepath from command line
     if (argumentQuantity > 1)
     {
-        string videoPath = arguments[1];
-        video = VideoCapture(videoPath);
+        videoPath = arguments[1];
     }
     else
     {
-        cout << "no filepath or stream given. trying network camera at 192.168.127.102:554" << endl;
-
         // Use network stream
-        video = VideoCapture("rtsp location=rtsp://admin:scroll64@192.168.127.102:554/Streaming/Channels/102 latency=10 ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink max-buffers=1 drop=true", CAP_GSTREAMER);//CAP_V4L2);
+        //videoPath = "rtsp location=rtsp://admin:scroll64@192.168.127.102:554/Streaming/Channels/102 latency=10 ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink max-buffers=1 drop=true", CAP_GSTREAMER);//CAP_V4L2);
+        videoPath = "rtspsrc location=rtsp://root:scroll64@194.19.72.87/axis-media/media.amp?resolution=640x400 latency=0 ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink max-buffers=1 drop=true";
+
+        cout << "no filepath or stream given. trying network camera " + videoPath << endl;
 
         // Use webcam
 /*        if (video.isOpened() == false)
@@ -235,6 +237,8 @@ int main(int argumentQuantity, char *arguments[])
             video = VideoCapture(0);
         }*/
     }
+
+    video = VideoCapture(videoPath, CAP_GSTREAMER);
 
     if (video.isOpened() == false)
     {
