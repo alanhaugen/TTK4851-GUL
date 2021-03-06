@@ -270,6 +270,7 @@ int main(int argumentQuantity, char *arguments[])
 
     // Load the network
     Net net = readNetFromDarknet(modelConfiguration, modelWeights);
+    //Net net = readNetFromONNX("data/models/yolov5s.onnx");
 
     // Load names of classes
     string classesFile = "data/models/coco.names";
