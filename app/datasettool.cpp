@@ -14,14 +14,14 @@ int imageQuantity, imageSkip;
 
 string labelData;
 
-std::ofstream fishTrainFile, labelFile;
+std::ofstream cameraTrainFile, labelFile;
 
 bool saveData;
 
 enum classes
 {
-    ATLANTIC_COD = 0,
-    SAITHE
+    PERSON = 0,
+    BICYCLE
 };
 
 static void onMouse(int event, int x, int y, int flags, void* param)
@@ -56,7 +56,7 @@ static void onMouse(int event, int x, int y, int flags, void* param)
             if (saveData) labelFile << labelData << endl;
             saveData = true;
 
-            int className = classes::ATLANTIC_COD;
+            int className = classes::PERSON;
             labelData = to_string(className) + " " + to_string(rectX) + " " + to_string(rectY) + " " + to_string(x) + " " + to_string(y);
 
             prevFrame = frame.clone();
@@ -122,11 +122,11 @@ void saveImage()
         labelFile.close();
     }
 
-    string labelPath = "data/labels/fish_" + to_string(imageQuantity) + ".txt";
+    string labelPath = "data/labels/person_" + to_string(imageQuantity) + ".txt";
     labelFile.open(labelPath, std::ios_base::app);
 
-    string filepath = "data/train/atlantic_cod/fish_" + to_string(imageQuantity) + ".png";
-    fishTrainFile << "train/atlantic_cod/fish_" + to_string(imageQuantity) + ".png" << endl;
+    string filepath = "data/train/people/person_" + to_string(imageQuantity) + ".png";
+    cameraTrainFile << "train/people/person_" + to_string(imageQuantity) + ".png" << endl;
 
     imwrite(filepath, backbuffer);
 
@@ -135,7 +135,7 @@ void saveImage()
 
 int main()
 {
-    imageQuantity = 590;
+    imageQuantity = 0;
     imageSkip = 50;
 
     saveData = false;
@@ -160,7 +160,7 @@ int main()
     backbuffer = frame.clone();
     prevFrame = frame.clone();
 
-    fishTrainFile.open("data/fish_train.txt", std::ios_base::app);
+    cameraTrainFile.open("data/camera_train.txt", std::ios_base::app);
 
     saveImage();
     plotTruth();
@@ -199,5 +199,5 @@ int main()
     if (saveData) labelFile << labelData << endl;
 
     labelFile.close();
-    fishTrainFile.close();
+    cameraTrainFile.close();
 }
