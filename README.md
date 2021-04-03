@@ -4,7 +4,7 @@
 
 ![alt text](logo.jpg "Captain")
 
-## Bruk av maskinsyn til å detektere og telle mennesker på autofergen
+## Plassering av kameraer og Bruk av maskinsyn til å detektere og telle mennesker og sykler på autofergen
 
 ### Setup
 
