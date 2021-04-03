@@ -163,7 +163,7 @@ int main()
     cameraTrainFile.open("data/camera_train.txt", std::ios_base::app);
 
     saveImage();
-    plotTruth();
+    //plotTruth();
 
     bool isAlive = true;
 
@@ -185,7 +185,7 @@ int main()
             saveData = false;
 
             saveImage();
-            plotTruth();
+            //plotTruth();
         }
 
         putText(frame, "Press SPACE to continue to next frame", Point(100,90), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(0,0,255),2);

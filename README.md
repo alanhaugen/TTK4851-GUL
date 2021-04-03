@@ -2,6 +2,8 @@
 
 ## Seanet
 
+![alt text](logo.jpg "Captain")
+
 ## Bruk av maskinsyn til å detektere og telle mennesker på autofergen
 
 ### Setup
