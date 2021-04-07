@@ -37,11 +37,8 @@ def main(dir_files, max_workers):
 
     if max_workers is None:
         print('Working with a single process, maybe set `--max-workers`?')
-        j = 0
         for f in tqdm(list(data_files)):
-            j += 1
-            if j < 4:
-                convert(f, dir_files)
+            convert(f, dir_files)
     else:
         print('Working in parallel using', max_workers, 'processses')
         with tqdm(total=len(data_files)) as progress_bar:
