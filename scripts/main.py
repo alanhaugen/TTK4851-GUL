@@ -14,10 +14,15 @@ def convert(file, dir_files):
         for rect in data["shapes"]:
             output = ""
             yolo_class = rect["label"]
-            xmin = str(round(rect["points"][0][0]))
-            ymin = str(round(rect["points"][0][1]))
-            xmax = str(round(rect["points"][1][0]))
-            ymax = str(round(rect["points"][1][1]))
+            x1 = round(rect["points"][0][0])
+            y1 = round(rect["points"][0][1])
+            x2 = round(rect["points"][1][0])
+            y2 = round(rect["points"][1][1])
+
+            xmin = str(min(x1,x2))
+            xmax = str(max(x1,x2))
+            ymin = str(min(y1,y2))
+            ymax = str(max(y1,y2))
 
             output += yolo_class
             output += " " + xmin
