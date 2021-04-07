@@ -31,6 +31,10 @@ Prosess: https://www.overleaf.com/8761576379qgqdtqkyvccb
 
 Prosjekt: https://www.overleaf.com/5628621316bwjsxvqghhgm
 
+### Drive
+
+Google drive: https://drive.google.com/drive/folders/1bFk8L2pCcWhR-ryazxeB5YyInMbRKmNv
+
 ### Reklamefilm av autoferjen
 
 Her er hvordan den neste autoferjen vil se ut: https://youtu.be/FuWedx0oLX4?t=107
