@@ -94,14 +94,14 @@ def get_fish_dicts(data_root, txt_file):
 if __name__ == "__main__":
     # configurations
 
-    data_root = 'data'
-    train_txt = 'fish_train.txt'
-    test_txt  = 'fish_test.txt'
+    data_root = 'Dataset'
+    train_txt = 'ferry_train.txt'
+    test_txt  = 'ferry_test.txt'
 
-    train_data_name = 'fish_train'
-    test_data_name  = 'fish_test'
+    train_data_name = 'ferry_train'
+    test_data_name  = 'ferry_test'
 
-    thing_classes = ['atlantic_cod', 'saithe']
+    thing_classes = ['person']
 
     output_dir = 'outputs'
 
