@@ -14,6 +14,8 @@ int imageQuantity, imageSkip;
 
 string labelData;
 
+string videoPath;
+
 std::ofstream cameraTrainFile, labelFile;
 
 bool saveData;
@@ -122,11 +124,11 @@ void saveImage()
         labelFile.close();
     }
 
-    string labelPath = "data/labels/person_" + to_string(imageQuantity) + ".txt";
+    string labelPath = "data/labels/person_" + videoPath + "_" + to_string(imageQuantity) + ".txt";
     labelFile.open(labelPath, std::ios_base::app);
 
-    string filepath = "data/train/people/person_" + to_string(imageQuantity) + ".png";
-    cameraTrainFile << "train/people/person_" + to_string(imageQuantity) + ".png" << endl;
+    string filepath = "data/train/people/person_" + videoPath + "_" + to_string(imageQuantity) + ".png";
+    cameraTrainFile << "train/people/person_" + videoPath + "_" + to_string(imageQuantity) + ".png" << endl;
 
     imwrite(filepath, backbuffer);
 
@@ -140,9 +142,9 @@ int main()
 
     saveData = false;
 
-    string videoPath = "in.mp4";
+    videoPath = "film1";
 
-    VideoCapture video(videoPath);
+    VideoCapture video(videoPath + string(".mp4"));
 
     if (video.isOpened() == false)
     {
@@ -160,7 +162,7 @@ int main()
     backbuffer = frame.clone();
     prevFrame = frame.clone();
 
-    cameraTrainFile.open("data/camera_train.txt", std::ios_base::app);
+    cameraTrainFile.open("data/ferry_train.txt", std::ios_base::app);
 
     saveImage();
     //plotTruth();
