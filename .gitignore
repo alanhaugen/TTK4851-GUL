@@ -1,4 +1,5 @@
 # App
+Dataset/*
 app/build/*
 app/CMakeLists.txt.user
 build*
