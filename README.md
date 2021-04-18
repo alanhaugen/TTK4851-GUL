@@ -4,11 +4,11 @@
 
 ![alt text](logo.jpg "Captain")
 
-## Plassering av kameraer og bruk av maskinsyn til å detektere og telle mennesker og sykler på autofergen
+## Plassering av kameraer og bruk av maskinsyn for telling av passasjerer på autofergen
 
 ### Setup
 
-Last ned data fra Dropbox: https://www.dropbox.com/sh/35sw2e2k2mnfpey/AABfc_XbsDZG3jrlAkSZ40I8a?dl=0
+Last ned data fra Dropbox: https://www.dropbox.com/sh/hncib87grdepkjy/AAA_whM7rUItDJQAB_48XJq7a?dl=0
 
 Sett data mappen her, i denne mappen.
 
