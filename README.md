@@ -12,8 +12,7 @@ Last ned data fra Dropbox: https://www.dropbox.com/sh/hncib87grdepkjy/AAA_whM7rU
 
 Sett data mappen her, i denne mappen.
 
-> cd TTK4851-GUL
-> unzip ~/Downloads/data.zip
+> cd TTK4851-GUL && unzip ~/Downloads/data.zip
 
 Installer opencv for python:
 
